@@ -1,0 +1,167 @@
+/*@import "AmaticFont.css";*/
+html{
+    font-family: 'Amatic SC', cursive;
+}
+/* -------------------------------- SECTIONS  ----------------------------- */
+#header, #artistes, #pictures{
+    display: block;
+    background-size: cover !important;
+    -webkit-background-size: cover;
+    padding:0;
+    z-index: 1;
+    width: 100%;
+    height: 500px;
+    margin-top: 0;
+    /*position: relative;*/
+}
+/*#header{*/
+    /*top: 0;*/
+    /*left: 0;*/
+/*}*/
+
+/* -------------------------------- MAIN ----------------------------- */
+#bandName{
+    font-size: 5em;
+}
+/* ------------------------------- VIDEO -------------------------------*/
+* { box-sizing: border-box; }
+.video-background {
+    /*margin-top: -40px;*/
+    background: #000;
+    position: fixed;
+    top: 0; right: 0; bottom: 0; left: 0;
+    z-index: -3;
+    /*background-size: cover;*/
+}
+.video-foreground,
+.video-background iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+.video-foreground{
+    z-index: -2;
+}
+@media (max-aspect-ratio: 16/9) {
+    /*.video-foreground { width: 300%; left: -100%; }*/
+}
+
+/* -------------------------------- PRESENTATION MUSICIENS ----------------------------- */
+#artistes{
+	background-color: #342d3d;
+	color: white;
+	position: relative;
+	z-index: 2;
+	margin-top: 240px;
+	width: 100%;
+    height: auto;
+}
+.collapsible{
+    display: flex;
+    flex-direction: row;
+}
+.person {
+    border: 5px solid transparent;
+    margin-bottom: 25px;
+    width: 200px;
+    height: auto;
+    opacity: 0.8;
+}
+.collapsible-header{
+    background-color: transparent !important;
+}
+.person:hover {
+    border-color: #f1f1f1;
+}
+
+/* -------------------------------- IMAGES PARALLAX BODY ----------------------------- */
+.block{
+    width: 100%;
+    height: 40%;
+    position: relative;
+    overflow: hidden;
+    font-size: 16px;
+}
+.block h2{
+    position: relative;
+    z-index: 6;
+    display: block;
+    text-align: center;
+    margin: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    -ms-transform: translateY(-50%); /* IE 9 */
+    -webkit-transform: translateY(-50%); /* Safari + Chrome + Android */
+    font-size: 10vw;
+    color: white;
+    font-weight: 400;
+    background-color: rgba(255, 255, 255, 0.4);
+}
+.img-parallax {
+    width: 100vmax;
+    z-index: 6;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%,0);
+    -ms-transform: translate(-50%,0); /* IE 9 */
+    -webkit-transform: translate(-50%,0); /* Safari + Chrome + Android  */
+    pointer-events: none;
+}
+
+/* -------------------------------- LOGOS FACEBOOK + YOUTUBE ----------------------------- */
+#facebook{
+    background: url("../img/logo-facebook-noir.png") no-repeat;
+    background-size: 100%;
+    width: 40px;
+    height: 40px;
+}
+#facebook:hover{
+    background-image: url("../img/logo-facebook-blanc.png");
+}
+#youtube{
+    background: url("../img/logo-youtube-noir.png") no-repeat;
+    background-size: 100%;
+    width: 40px;
+    height: 50px;
+}
+#youtube:hover{
+    background-image: url("../img/logo-youtube-blanc.png");
+}
+
+/* -------------------------------- BOUTON retour page accueil ----------------------------- */
+#myBtn {
+    display: none; /* Hidden by default */
+    position: fixed; /* Fixed/sticky position */
+    bottom: 20px; /* Place the button at the bottom of the page */
+    right: 30px; /* Place the button 30px from the right */
+    z-index: 99; /* Make sure it does not overlap */
+    border: none; /* Remove borders */
+    outline: none; /* Remove outline */
+    background-color: #454545; /* Set a background color */
+    cursor: pointer; /* Add a mouse pointer on hover */
+    padding: 5px; /* Some padding */
+    border-radius: 5px; /* Rounded corners */
+    width: 40px;
+}
+#myBtn:hover {
+    background-color: #555; /* Add a dark-grey background on hover */
+}
+#btn-top{
+    width: 100%;
+}
+
+/* -------------------------------- LOGOS FACEBOOK + YOUTUBE ----------------------------- */
+#logos{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0 47%;
+}
+#logos li{
+    padding: 5px;
+    width: 50px;
+}
