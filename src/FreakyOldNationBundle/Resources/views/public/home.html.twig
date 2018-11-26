@@ -1,0 +1,66 @@
+{% extends "@FreakyOldNation/layout.html.twig" %}
+
+{% block title %}Freaky Old Nation{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/css/homeStyle.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/down-arrow.css') }}">
+{% endblock %}
+
+{% block body %}
+    <section id="header" class="center">
+
+        <h1 id="bandName">- Freaky Old Nation - </h1>
+        <h2>Band</h2>
+
+        <div class="video-background">
+            <div class="video-foreground">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/sQsE3TmVRCo?rel=0&amp;controls=0&amp;showinfo=0&amp;start=25&rel=0&autoplay=1&loop=0&mute=1&display=sQsE3TmVRCo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <a href="#artistes">
+            <div class="bounce">
+                <img class="arrow" src="{{ asset('assets/img/arrow-down-white.png') }}" alt="double-down-arrow">
+            </div>
+        </a>
+        <!-- ############################  OUTILS  ##############################  -->
+        <!-- Bouton pour remonter en haut de page! -->
+        <button onclick="topFunction()" id="myBtn" title="Go to top"><img id="btn-top" src="{{ asset('assets/img/top-btn.png') }}" alt="Top button"></button>
+
+        <!-- LOGOS facebook + Youtube : Boutons -->
+        <ul id="logos">
+            <li>
+                <a href="https://www.facebook.com/freakyoldnation/" target="_blank">
+                    <div id="facebook" onmouseover="changeColor('rgba(59, 89, 152, 0.7)');" onmouseout="restoreColor();"></div>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.youtube.com/channel/UCulurmxBGQp6Dff5VtEHvEw" target="_blank">
+                    <div id="youtube" onmouseover="changeColor('rgba(255, 0, 0, 0.7)');" onmouseout="restoreColor();"></div>
+                </a>
+            </li>
+        </ul>
+    </section>
+
+    <!-- CONTENT : in progress -->
+
+    <script>
+        // Change color of background when mouse is over Facebook and Youtube LOGO
+        function changeColor(newColor){
+            document.querySelector('#header').style.backgroundColor = newColor;
+        }
+        function restoreColor(){
+            document.querySelector('#header').style.backgroundColor = "transparent";
+        }
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+            document.body.scrollTop = 0; // For Safari
+            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+        }
+    </script>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="javascript" src="{{ asset('assets/js/homeScript.js') }}"></script>
+{% endblock %}

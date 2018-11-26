@@ -1,0 +1,237 @@
+{% extends "@FreakyOldNation/layout.html.twig" %}
+
+{% block title %}ADMIN{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+<!-- --------------------------------------- START MENU ---------------------------------------- -->
+    <nav class="nav-extended teal lighten-2">
+        <div class="nav-wrapper">
+            <a href="{{ path('home') }}" class="brand-logo"><i class="material-icons">security</i>ADMIN</a>
+            <a href="{{ path('logout') }}" class="right sidenav-trigger"><i class="material-icons">exit_to_app</i></a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="{{ path('home') }}">EXIT</a></li>
+            </ul>
+        </div>
+        <div class="nav-content">
+            <ul id="noeffect" class="tabs tabs-transparent">
+                <li class="tab"><a href="{{ path('files') }}">Upload File(s)</a></li>
+                <li class="tab"><a href="{{ path('createevent') }}">Agenda</a></li>
+                <li class="tab"><a class="active" href="{{ path('read') }}">Library</a></li>
+            </ul>
+        </div>
+    </nav>
+<!-- --------------------------------------- END MENU ------------------------------------------- -->
+
+    {#<h3 class="center">Library</h3>#}
+    <br>
+    <div class="row">
+        <div class="col m8 s12 offset-m2 center">
+            <div class="nav-content teal lighten-1">
+                <ul class="tabs tabs-transparent">
+                    <li class="tab col m2 s2"><a class="active" href="#event">Evènements</a></li>
+                    <li class="tab col m2 s2"><a href="#picture">Images</a></li>
+                    <li class="tab col m2 s2"><a href="#movie">Vidéos</a></li>
+                    <li class="tab col m2 s2"><a href="#music">Musiques</a></li>
+                    <li class="tab col m2 s2"><a href="#other">Fichiers</a></li>
+                    <li class="tab col m2 s2"><a href="#memo">MEMOS</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="event" class="row">
+        <div class="col m8 s12 offset-m2">
+            <table id="tableEvents" class="striped highlight responsive-table">
+                <thead>
+                <tr>
+                    <th>Titre</th>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Utilisateur</th>
+                    <th>Date création</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for event in events %}
+                    <tr>
+                        <td>{{ event.title }}</td>
+                        <td>{{ event.date }}</td>
+                        <td>{{ event.description }}</td>
+                        <td>{{ event.user.username }}</td>
+                        <td>{{ event.dateCreation|date("Y/m/d H:i", "Europe/Paris") }}</td>
+                        <td><a href="{{ path('editevent', {"eventID": event.id} ) }}"><i class="material-icons icon-blue">edit</i></a></td>
+                        <td><a href="{{ path('deleteevent', {"eventID": event.id} ) }}"><i class="material-icons icon-red">delete</i></a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="picture" class="row">
+        <div class="col m8 s12 offset-m2">
+            <table id="tablePictures" class="striped highlight centered responsive-table">
+                <thead>
+                <tr>
+                    <th>Picture</th>
+                    <th>Date création</th>
+                    <th>Utilisateur</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {#{% for file in files if file.mimeType == "image"%}#}
+                {% for file in files %}
+                    <tr>
+                        <td><img class="pictureSize" src="{{ file.path }}.{{ file.mimeType }}" alt="{{ file.name }}"></td>
+                        <td>{{ file.dateCreation|date("Y/m/d H:i", "Europe/Paris") }}</td>
+                        <td>{{ file.user.username }}</td>
+                        <td>
+                            <select name="status" id="status" data-initial="{{ file.status }}">
+                                <option value="0">public</option>
+                                <option value="1">hidden</option>
+                                <option value="2">picture1</option>
+                                <option value="3">picture2</option>
+                                <option value="4">picture3</option>
+                            </select>
+                        </td>
+                        {#<td><a href="{{ path('editfile', {"fileID": file.id} ) }}"><i class="material-icons icon-blue">edit</i></a></td>#}
+                        <td><a href="{{ path('deletefile', {"fileID": file.id} ) }}"><i class="material-icons icon-red">delete</i></a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="movie" class="row">
+        <div class="col m8 s12 offset-m2">
+            <table id="tableMovies" class="striped highlight centered responsive-table">
+                <thead>
+                <tr>
+                    <th>Video</th>
+                    <th>Date création</th>
+                    <th>Utilisateur</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for file in files if file.mimeType == "movie" %}
+                    <tr>
+                        <td><iframe src="{{ file.file }}" frameborder="0"></iframe></td>
+                        <td>{{ file.dateCreation|date("Y/m/d H:i", "Europe/Paris") }}</td>
+                        <td>{{ file.user.username }}</td>
+                        <td>{{ file.status }}</td>
+                        {#<td><a href="{{ path('editfile', {"fileID": file.id} ) }}"><i class="material-icons icon-blue">edit</i></a></td>#}
+                        <td><a href="{{ path('deletefile', {"fileID": file.id} ) }}"><i class="material-icons icon-red">delete</i></a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="music" class="row">
+        <div class="col m8 s12 offset-m2">
+            <table id="tableMusics" class="striped highlight responsive-table">
+                <thead>
+                <tr>
+                    <th>Musique</th>
+                    <th>Date création</th>
+                    <th>Uutilisateur</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for file in files if file.mimeType == "music" %}
+                    <tr>
+                        <td>  LECTURE MUSIQUE  </td>
+                        <td>{{ file.dateCreation|date("Y/m/d H:i", "Europe/Paris") }}</td>
+                        <td>{{ file.user.username }}</td>
+                        <td>{{ file.status }}</td>
+                        {#<td><a href="{{ path('editfile', {"fileID": file.id} ) }}"><i class="material-icons icon-blue">edit</i></a></td>#}
+                        <td><a href="{{ path('deletefile', {"fileID": file.id} ) }}"><i class="material-icons icon-red">delete</i></a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="other" class="row">
+        <div class="col m8 s12 offset-m2">
+            <table id="tableFiles" class="striped highlight responsive-table">
+                <thead>
+                <tr>
+                    <th>Fichier</th>
+                    <th>Date création</th>
+                    <th>Utilisateur</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for file in files if file.mimeType == "application" %}
+                <tr>
+                    <td>  LECTURE FICHIERS  </td>
+                    <td>{{ file.dateCreation|date("Y/m/d H:i", "Europe/Paris") }}</td>
+                    <td>{{ file.user.username }}</td>
+                    <td>{{ file.status }}</td>
+                    {#<td><a href="{{ path('editfile', {"fileID": file.id} ) }}"><i class="material-icons icon-blue">edit</i></a></td>#}
+                    <td><a href="{{ path('deletefile', {"fileID": file.id} ) }}"><i class="material-icons icon-red">delete</i></a></td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="memo" class="row">
+        <div class="col m8 s12 offset-m2">
+            <textarea name="" id="" cols="30" rows="10"></textarea>
+            <button class="waves-effect waves-light btn">SAVE</button>
+
+        </div>
+    </div>
+</div>
+
+    <footer>
+        <a href="{{ path("register") }}"><button class="waves-effect waves-light btn">Create New User</button></a>
+    </footer>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+
+
+    <script>
+        //DATATABLE
+        $(document).ready( function () {
+            let table1 = $('#tableEvents').DataTable();
+            let table2 = $('#tablePictures').DataTable();
+            let table3 = $('#tableMovies').DataTable();
+            let table4 = $('#tableMusics').DataTable();
+            let table5 = $('#tableFiles').DataTable();
+        });
+        $(document).ready(function() {
+            let targetedID;
+
+
+        });
+
+
+    </script>
+
+{% endblock %}

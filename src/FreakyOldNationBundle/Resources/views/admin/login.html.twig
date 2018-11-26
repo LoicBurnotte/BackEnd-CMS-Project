@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="{{ asset('assets/css/login.css') }}">
+</head>
+<body>
+    <div class="login-page">
+        <div class="form">
+            <form class="register-form" action="{{ path('login_check') }}" method="post">
+                {% if error != null %}
+                    {{ error.message }}
+                {% endif %}
+                <input type="text" name="_username" value="{{ username }}" placeholder="name" autofocus>
+                <input type="password" name="_password" placeholder="password">
+                <button type="submit">Sign in</button>
+                {#<p class="message">Not registered? <a href="{{ path('register') }}">Create an account</a></p>#}
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript" src="{{ asset('assets/js/script.js') }}"></script>
+</body>
+</html>

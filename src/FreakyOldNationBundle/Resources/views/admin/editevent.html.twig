@@ -1,0 +1,17 @@
+{% extends "@FreakyOldNation/layout.html.twig" %}
+
+{% block title %}ADMIN{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col m8 s12 offset-m2 center">
+                <h2>Edit Event</h2>
+                {{ form_start(form) }}
+                {{ form_rest(form) }}
+                <br><input class="btn btn-primary" type="submit" value="submit">
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

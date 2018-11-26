@@ -1,0 +1,9 @@
+freaky_old_nation:
+    resource: "@FreakyOldNationBundle/Controller/"
+    type:     annotation
+    prefix:   /
+logout:
+    path: /logout
+login_check:
+    path: /login-check
+

@@ -1,0 +1,57 @@
+# To get started with security, check out the documentation:
+# https://symfony.com/doc/current/security.html
+security:
+
+    # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+    providers:
+        main:
+            entity:
+                class: FreakyOldNationBundle\Entity\User
+                property: username
+
+    encoders:
+        FreakyOldNationBundle\Entity\User:
+            algorithm: bcrypt
+            iterations: 4678
+
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_MODERATOR
+        ROLE_MODERATOR: ROLE_USER
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/  # ^/(_profiler|_wdt|css|images|js)/
+            security: false
+        login:
+            pattern: ^/(login|register)$
+            anonymous: true
+#            logout_on_user_change: true
+        api_login:
+            pattern:  ^/api/login
+            stateless: true
+            anonymous: true
+            json_login:
+                check_path:               /api/login_check
+                success_handler:          lexik_jwt_authentication.handler.authentication_success
+                failure_handler:          lexik_jwt_authentication.handler.authentication_failure
+        api:
+            pattern:   ^/api
+            anonymous: true
+            stateless: true
+            guard:
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator
+        main:
+            pattern: ^/
+            anonymous: true
+            form_login:
+                login_path: /login
+                check_path: /login-check
+                default_target_path: /admin
+                always_use_default_target_path: true
+                failure_path: /notfound
+            logout:
+                path: /logout
+                target: /
+
+#            logout_on_user_change: true

@@ -1,0 +1,57 @@
+{% extends "@FreakyOldNation/layout.html.twig" %}
+
+{% block title %}ADMIN{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+<!-- --------------------------------------- START MENU ---------------------------------------- -->
+        <nav class="nav-extended teal lighten-2">
+            <div class="nav-wrapper">
+                <a href="{{ path('home') }}" class="brand-logo"><i class="material-icons">security</i>ADMIN</a>
+                <a href="{{ path('logout') }}" class="right sidenav-trigger"><i class="material-icons">exit_to_app</i></a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a href="{{ path('home') }}">EXIT</a></li>
+                </ul>
+            </div>
+            <div class="nav-content">
+                <ul id="noeffect" class="tabs tabs-transparent">
+                    <li class="tab"><a href="{{ path('createfile') }}">Upload File(s)</a></li>
+                    <li class="tab"><a class="active" href="{{ path('createevent') }}">Agenda</a></li>
+                    <li class="tab"><a href="{{ path('read') }}">Library</a></li>
+                </ul>
+            </div>
+        </nav>
+<!-- ---------------------------------------- END MENU --------------------------------------- -->
+        <div class="row">
+            <div id="agenda" class="tab-pane fade">
+                <div class="panel panel-default">
+                    <div class="col m6 s12 offset-m3">
+                        <h3 class="center">New event :</h3>
+                        <form class="form-horizontal" action="{{ path('createevent') }}" method="post">
+                            {#{{ form_start(form) }}#}
+                            <div class="form-group ">
+                                <label class="control-label col-sm-2" for="date">Date</label>
+                                {#{{ form_widget(form.date|date_format,'yyyy-MM-dd HH:i') }}#}
+                                {#<input class="form-control" type="date" id="date" name="date" placeholder="DD/MM/YYYY"/>#}
+                                <input type="text" class="datepicker" name="date" placeholder="DD/MM/YYYY">
+
+                                {#<label class="control-label col-sm-2" for="date">Heure</label>#}
+                                {#<input type="text" class="timepicker" name="time" value="18:00" placeholder="HH:ii">#}
+
+                                <label class="control-label col-sm-2" for="title">Titre</label>
+                                {#{{ form_widget(form.title) }}#}
+                                <input class="form-control" id="title" name="title" type="text"/>
+                                <label class="control-label col-sm-2" for="textarea">Description</label>
+                                {#{{ form_widget(form.description) }}#}
+                                <textarea class="form-control" cols="40" id="textarea" name="description" rows="10"></textarea>
+                                <button class="btn btn-primary" type="submit">Submit</button>
+                                {#{{ form_end(form) }}#}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

@@ -1,0 +1,113 @@
+{% extends "@FreakyOldNation/layout.html.twig" %}
+
+{% block title %}ADMIN{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
+{% endblock %}
+
+{% block body %}
+    {% if is_granted('ROLE_USER') %}
+        <div class="container-fluid">
+<!-- --------------------------------------- START MENU ---------------------------------------- -->
+            <nav class="nav-extended teal lighten-2">
+                <div class="nav-wrapper">
+                    <a href="{{ path('home') }}" class="brand-logo"><i class="material-icons">security</i>ADMIN</a>
+                    <a href="{{ path('logout') }}" class="right sidenav-trigger"><i class="material-icons">exit_to_app</i></a>
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <li><a href="{{ path('home') }}">EXIT</a></li>
+                    </ul>
+                </div>
+                <div class="nav-content">
+                    <ul id="noeffect" class="tabs tabs-transparent">
+                        <li class="tab"><a class="active" href="{{ path('files') }}">Upload File(s)</a></li>
+                        <li class="tab"><a href="{{ path('createevent') }}">Agenda</a></li>
+                        <li class="tab"><a href="{{ path('read') }}">Library</a></li>
+                    </ul>
+                </div>
+            </nav>
+<!-- --------------------------------------- END MENU ---------------------------------------- -->
+            <div class="container center">
+                <div class="row">
+                    <div class="col m10 s12 offset-m1">
+                        <h3 class="center">Upload file(s)</h3>
+
+                        <div class="dropzone my-dropzone" id="form_snippet_image" action="{{path('createfile')}}">
+
+                        </div>
+                        {##}
+                        {#<form action="{{ path('createfile') }}" class="dropzone" id="my-awesome-dropzone">#}
+                            {#<div class="fallback">#}
+                                {#<input id="hidden" type="file" name="file" multiple />#}
+                            {#</div>#}
+                            {#<div alt="Click me to remove the file." data-dz-remove><i class="material-icons icon-red">delete</i></div>#}
+
+                        {#</form>#}
+                        {#<br>#}
+                        {#{{ form_start(form) }}#}
+                         {#BOUCLE pour montrer toutes les photos?! #}
+                        {#<input id="mime" type="text" name="_mimeType">#}
+                        {#{{ form_rest(form) }}#}
+                        {#{{ form_end(form) }}#}
+                        {#<a class="center" href="{{ path("read") }}"><button class="waves-effect waves-light btn">SEND</button></a>#}
+
+                    </div>
+                </div>
+                <div class="row center">
+                    <div class="col m8 s10 offset-m2">
+                        <img style="width: 80px;" id="preview" src="{{ asset('assets/img/default-img.jpg') }}">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    {% else %}
+        <a class="center" href="{{ path("home") }}"><button class="waves-effect waves-light btn">GO HOME</button></a>
+    {% endif %}
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('assets/js/dropzone.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            //je récupère l'action où sera traité l'upload en PHP
+            let _actionToDropZone = $("#form_snippet_image").attr('action');
+
+            //je définis ma zone de drop grâce à l'ID de ma div citée plus haut.
+            Dropzone.autoDiscover = false;
+            let myDropzone = new Dropzone("#form_snippet_image", { url: _actionToDropZone });
+
+            myDropzone.on("addedfile", function(file) {
+                alert('nouveau fichier reçu');
+            });
+
+            /* COMMENT TELECHARGER et AFFICHER une IMAGE avec 1 seule variable dans la TABLE et héberger cette image dans la DB directement!
+            <img id="preview" src="img-default.jpg">
+            */
+            // $("input[name=file]").change(function (e) {
+            //     if (this.files && this.files[0]) {
+            //         let reader = new FileReader();
+            //
+            //         console.log(reader);
+            //         console.log(this.result);
+            //
+            //         // récupérer les premiers caractères pour connaître le type de fichier
+            //         let mimeType = this.result.split("/", 1);
+            //
+            //         console.log(mimeType[0]);
+            //         $("#mime").html(mimeType[0]);
+            //
+            //         reader.onload = function (e) {
+            //             $("#preview").attr("src", this.result);
+            //         };
+            //         reader.readAsDataURL(this.files[0])
+            //     }
+            // });
+
+
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="{{ asset('assets/css/login.css') }}">
+</head>
+<body>
+    <div class="login-page">
+        <div class="form">
+            {{ form_start(form) }}
+            {{ form_label(form.username) }}
+            {{ form_widget(form.username,
+                {"attr":{"class":"input"}})
+            }}
+            {{ form_rest(form) }}
+            <button>Register</button>
+            <p class="message">Already registered? <a href="{{ path('login') }}">Sign in</a></p>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</body>
+</html>
